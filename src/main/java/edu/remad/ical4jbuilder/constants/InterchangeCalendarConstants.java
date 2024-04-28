@@ -16,6 +16,12 @@ public final class InterchangeCalendarConstants {
 			.ofPattern(INTERNATIONAL_TIME_PATTERN);
 	public static final RandomUidGenerator UID_GENERATOR = new RandomUidGenerator();
 	public static final String MAILTO_KEY = "mailto:";
+	
+	public static final String  APPOINTMENT_NAME = "Ihre Nachhilfe heute um ";
+	
+	public static final String LOCATION = "Remote";
+	
+	public static final String FILE_NAME = "termin.ics";
 
 	/**
 	 * do never instantiate as object
