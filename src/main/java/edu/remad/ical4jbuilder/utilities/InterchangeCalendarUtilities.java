@@ -11,16 +11,19 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
+import edu.remad.ical4jbuilder.builders.InterchangeCalendarBuilder;
 import edu.remad.ical4jbuilder.builders.InterchangeCalendarDataBuilder;
 import edu.remad.ical4jbuilder.constants.InterchangeCalendarConstants;
 import edu.remad.ical4jbuilder.exceptions.InterChangeCalendarUtilitiesException;
 import edu.remad.ical4jbuilder.models.InterchangeCalendarData;
 import edu.remad.ical4jbuilder.models.InterchangeCalendarProdId;
+import edu.remad.tutoring2.models.ReminderEntity;
 import edu.remad.tutoring2.models.TutoringAppointmentEntity;
 import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.model.parameter.Cn;
 import net.fortuna.ical4j.model.parameter.Email;
 import net.fortuna.ical4j.model.parameter.Role;
+import net.fortuna.ical4j.model.property.Location;
 import net.fortuna.ical4j.model.property.Uid;
 
 public class InterchangeCalendarUtilities {
@@ -136,5 +139,23 @@ public class InterchangeCalendarUtilities {
 
 	public static String convertLocaldateTimeToTime(LocalDateTime time) {
 		return time.format(InterchangeCalendarConstants.DATE_AND_TIME_FORMATTER);
+	}
+	
+	public static List<byte[]> createInterchangeCalendarFile(List<ReminderEntity> reminders) {
+		List<byte[]> calendarFiles = new ArrayList<>();
+		
+		for(ReminderEntity reminder : reminders) {
+			byte[] calendarFile = createCalendarFile(createCalendarData(reminder.getReminderTutoringAppointment()));
+			calendarFiles.add(calendarFile);
+		}
+		
+		return calendarFiles;
+	}
+
+	public static byte[] createCalendarFile(InterchangeCalendarData calendarData) {
+		return new InterchangeCalendarBuilder().setStartTime(calendarData.getStartTime())
+				.setEndTime(calendarData.getEndTime()).setAppointmentName(calendarData.getAppointmentName())
+				.setAttendees(calendarData.getAttendees()).setOrganizers(calendarData.getOrganizers())
+				.setProdId(calendarData.getProdId()).setLocation(new Location(calendarData.getLocation())).build();
 	}
 }
