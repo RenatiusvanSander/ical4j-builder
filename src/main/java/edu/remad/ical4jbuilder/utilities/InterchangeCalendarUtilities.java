@@ -14,9 +14,9 @@ import org.apache.commons.lang3.StringUtils;
 import edu.remad.ical4jbuilder.builders.InterchangeCalendarDataBuilder;
 import edu.remad.ical4jbuilder.constants.InterchangeCalendarConstants;
 import edu.remad.ical4jbuilder.exceptions.InterChangeCalendarUtilitiesException;
-import edu.remad.ical4jbuilder.models.Appointment;
 import edu.remad.ical4jbuilder.models.InterchangeCalendarData;
 import edu.remad.ical4jbuilder.models.InterchangeCalendarProdId;
+import edu.remad.tutoring2.models.TutoringAppointmentEntity;
 import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.model.parameter.Cn;
 import net.fortuna.ical4j.model.parameter.Email;
@@ -54,7 +54,7 @@ public class InterchangeCalendarUtilities {
 	private static List<Parameter> createParameterList(Map<String, String> organizerData, Role role) {
 		if (organizerData == null || organizerData.isEmpty() || role == null) {
 
-			String errorMessage = StringUtils.EMPTY;
+			String errorMessage = null;
 			if (organizerData == null) {
 				errorMessage = "organizerData is null!";
 			} else if (organizerData.isEmpty()) {
@@ -99,7 +99,7 @@ public class InterchangeCalendarUtilities {
 		return attendee;
 	}
 
-	public static InterchangeCalendarData createCalendarData(Appointment appointment) {
+	public static InterchangeCalendarData createCalendarData(TutoringAppointmentEntity appointment) {
 		String name = createAppointmentName(appointment.getTutoringAppointmentStartDateTime());
 		Map<String, List<Parameter>> organizer = createOrganizerMap(createOraganizerData());
 		Map<String, List<Parameter>> attendee = createAttendeeMap(createAttendeeData(appointment));
@@ -112,13 +112,13 @@ public class InterchangeCalendarUtilities {
 
 	public static Map<String, String> createOraganizerData() {
 		Map<String, String> organizerData = new HashMap<>();
-		organizerData.put(EMAIL, "fhdsfhhd@hdhdhd.com");
+		organizerData.put(EMAIL, "remad@web.de");
 		organizerData.put(CN, "ReMad");
 
 		return organizerData;
 	}
 
-	public static Map<String, String> createAttendeeData(Appointment appointment) {
+	public static Map<String, String> createAttendeeData(TutoringAppointmentEntity appointment) {
 		String fullName = String.join(StringUtils.SPACE, appointment.getTutoringAppointmentUser().getFirstName(),
 				appointment.getTutoringAppointmentUser().getLastName());
 		Map<String, String> attendeeData = new HashMap<>();

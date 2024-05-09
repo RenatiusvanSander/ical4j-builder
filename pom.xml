@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>edu.remad</groupId>
 	<artifactId>ical4j-builder</artifactId>
-	<version>1.0.3-SNAPSHOT</version>
+	<version>1.0.4-SNAPSHOT</version>
 
 	<properties>
 		<maven.compiler.target>1.8</maven.compiler.target>
@@ -33,6 +33,13 @@
 			<groupId>org.apache.maven.plugins</groupId>
 			<artifactId>maven-jar-plugin</artifactId>
 			<version>${maven.jar.version}</version>
+		</dependency>
+		
+		<!-- own implementations -->
+		<dependency>
+			<groupId>edu.remad</groupId>
+			<artifactId>tutoring2-models</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 
